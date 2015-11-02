@@ -51,6 +51,30 @@ public class HttpConnector {
         }
         return sb.toString();
     }
+
+    /**
+     * This will take provided params and execute the api call
+     *
+     * @param url  end point of api
+     * @param crud operation to execute
+     * @return String
+     */
+    public static String execute(URL url, String crud) {
+        String message = null;
+        try {
+            HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+            httpCon.setDoOutput(true);
+            httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            httpCon.setRequestMethod(crud);
+            httpCon.getResponseCode();
+            message = streamToString(httpCon.getInputStream());
+        } catch (IOException e) {
+            Log.e("url-error", String.valueOf(e.getMessage()));
+        }
+
+        return message;
+    }
+
     private static String returnData(){
         return null;
     }
