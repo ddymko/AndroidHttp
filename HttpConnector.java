@@ -53,26 +53,33 @@ public class HttpConnector {
     }
 
     /**
-     * This will take provided params and execute the api call
-     *
-     * @param url  end point of api
-     * @param crud operation to execute
+     * This will execute the actual http call
+     * @param url Endpoint for the api
+     * @param crud Crud operation that needs to be executed
+     * @param query the http body request
      * @return String
      */
-    public static String execute(URL url, String crud) {
+    public static String execute (URL url,String crud, String query) {
+
         String message = null;
         try {
             HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
             httpCon.setDoOutput(true);
             httpCon.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
             httpCon.setRequestMethod(crud);
+
+            if (crud.equals("POST") || crud.equals("PUT")) {
+                OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
+                out.write(query);
+                out.close();
+            }
+
             httpCon.getResponseCode();
             message = streamToString(httpCon.getInputStream());
         } catch (IOException e) {
             Log.e("url-error", String.valueOf(e.getMessage()));
         }
-
-        return message;
+       return message;
     }
 
     private static String returnData(){
