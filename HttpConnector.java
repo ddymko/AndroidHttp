@@ -11,27 +11,48 @@ import java.net.URL;
  */
 public class HttpConnector {
 
-    static URL url;
+    /**
+     * This just adds a layer between execution
+     * @param url Endpoint for api
+     * @param crud Crud operation that needs to be executed
+     * @return String
+     */
+    public static String HttpGet(URL url, String crud){
 
-    public static String HttpGet(){
-        return null;
+        return execute(url, crud, null);
+    }
+    /**
+     * This just adds a layer between execution
+     * @param url Endpoint for api
+     * @param crud Crud operation that needs to be executedyeah
+     * @param query the http body request
+     * @return String
+     */
+    public static String HttpPost(URL url, String crud, String query){
+
+        return execute(url, crud, query);
+    }
+    /**
+     * This just adds a layer between execution
+     * @param url Endpoint for api
+     * @param crud Crud operation that needs to be executed
+     * @param query the http body request
+     * @return String
+     */
+    public static String HttpPut(URL url, String crud, String query){
+        return execute(url, crud, query);
     }
 
-    public static String HttpPost(){
-        return null;
+    /**
+     * This just adds a layer between execution
+     * @param url Endpoint for api
+     * @param crud Crud operation that needs to be executed
+     * @return String
+     */
+    public static String HttpDelete(URL url, String crud){
+        return execute(url, crud, null);
     }
 
-    public static String HttpPut(){
-        return null;
-    }
-
-    public static String HttpDelete(){
-        return null;
-    }
-
-    private static String httpSend(){
-    return null;
-    }
     private static String urlBuilder(){
         return null;
     }
@@ -42,7 +63,7 @@ public class HttpConnector {
      * @return string
      * @throws IOException
      */
-    private static String streamToString(InputStream is) throws IOException {
+    private static String streamToString (InputStream is) throws IOException {
         StringBuilder sb = new StringBuilder();
         BufferedReader rd = new BufferedReader(new InputStreamReader(is));
         String line;
